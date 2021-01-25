@@ -1,0 +1,85 @@
+
+float x, y, angle;
+int r = 75;
+
+void setup(){
+  size(400,400);
+  frameRate(1);
+}
+
+void draw(){
+  background(0);
+  stroke(255);
+  
+  angle += 6;
+  x = r * cos(radians(angle));
+  y = r * sin(radians(angle));
+  
+  textAlign(CENTER, CENTER);
+  textSize(14); 
+  text("12", 200, 115); 
+  text("3", 290, 200); 
+  text("6", 200, 285); 
+  text("9", 110, 200);
+  
+  translate(width/2, height/2);
+  noFill(); strokeWeight(3); stroke(225, 0, 0); ellipse(0, 0, 200, 200);
+  strokeWeight(1); stroke(225); line(0, 0, x, y);
+}
+float x, y, angle;
+int r = 75;
+float seconds = 0;
+
+void setup(){
+  size(400,400);
+  frameRate(1);
+}
+
+void draw(){
+  background(0);
+  stroke(255);
+  
+  seconds += 1;
+  angle = (seconds * (PI/30)) - (PI/2);
+  x = r * cos(angle);
+  y = r * sin(angle);
+  
+  textAlign(CENTER, CENTER);
+  textSize(14); 
+  text("12", 200, 115); 
+  text("3", 290, 200); 
+  text("6", 200, 285); 
+  text("9", 110, 200);
+  
+  translate(width/2, height/2);
+  noFill(); strokeWeight(3); stroke(225, 0, 0); ellipse(0, 0, 200, 200);
+  strokeWeight(1); stroke(225); line(0, 0, x, y);
+  
+}
+float x, y, angle;
+int r = 75;
+
+void setup(){
+  size(400,400);
+  frameRate(60);
+}
+
+void draw(){
+  background(0);
+  stroke(255);
+  
+  angle = (second() * (PI/30)) - (PI/2);
+  x = r * cos(angle);
+  y = r * sin(angle);
+  
+  textAlign(CENTER, CENTER);
+  textSize(14); 
+  text("12", 200, 115); 
+  text("3", 290, 200); 
+  text("6", 200, 285); 
+  text("9", 110, 200);
+  
+  translate(width/2, height/2);
+  noFill(); strokeWeight(3); stroke(225, 0, 0); ellipse(0, 0, 200, 200);
+  strokeWeight(1); stroke(225); line(0, 0, x, y);
+}
