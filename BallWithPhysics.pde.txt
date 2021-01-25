@@ -1,0 +1,16 @@
+float x_off = 0.0;
+float y = 1.0;
+float z = 0.0;
+float xposition = 0.0;
+void setup(){
+size(500,500);
+}
+void draw() {
+background(0);
+x_off += 0.01;
+y += 1.0;
+z += 0.01;
+float x = noise(x_off) * height;
+xposition += x;
+ellipse(x,500- y, 30+z, 30+z);
+}
