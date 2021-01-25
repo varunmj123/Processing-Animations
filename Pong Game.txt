@@ -1,0 +1,115 @@
+ 
+int paddleWidth;
+int paddleHeight;
+int score;
+int paddleX;
+int paddleY;
+float paddleSpeed;
+ 
+int ballRadius; 
+float ballX;
+float ballY;
+float dirX;
+float dirY;
+ 
+int lives=3;
+void setup () {
+  size(640, 480);
+  rectMode(CENTER);
+  ellipseMode(CENTER);
+  paddleWidth = 120;
+  paddleHeight = 10;
+  paddleX = width/2;
+  paddleY = height - paddleHeight;
+  paddleSpeed = 10;
+  ballRadius = 10;
+  ballX = width/2;
+  ballY =  7 + ballRadius;
+  dirX = 0.9; 
+  dirY = 1;
+}
+void draw() {
+  //BackScreen();
+  background (0);
+  Paddle();
+  Ball();
+  BallMove();
+  BallBounce() ; // you didn't have that here
+  PaddleControl();
+  PaddleContain();  // not in use??
+  Miss();
+  fill(255);
+  text ("Lifes: "+lives, width-80, 22);
+  text ("Score:" + score, width - 600, 22);
+}
+ 
+void Paddle() {
+  rectMode(CENTER);
+  fill(150);
+  noStroke();
+  rect(paddleX, paddleY, paddleWidth, paddleHeight);
+}
+void Ball() {
+  fill(255, 0, 0);
+  noStroke();
+  smooth();
+  ellipse(ballX, ballY, ballRadius*2, ballRadius*2);
+}
+void BallMove() {
+  ballY += dirY;
+  ballX += dirX;
+}
+void BallBounce() {
+  if (ballY < ballRadius)
+    dirY *= -1;
+  if (ballX < ballRadius ||
+    ballX > width-ballRadius)   
+    dirX *= -1;
+  
+  if (ballY >= paddleY-paddleHeight &&
+    ballX < paddleX + (paddleWidth/2) &&
+    ballX > paddleX - (paddleWidth/2)) {
+    dirY *= -1;
+  }
+}
+void PaddleControl() {
+  if (keyPressed && paddleX + (paddleWidth/2) < width) {
+    if (key == CODED) {
+      if (keyCode == RIGHT) {
+        paddleX += paddleSpeed;
+      }
+    }
+  }
+  if (keyPressed && paddleX - (paddleWidth/2) > width - width) {
+    if (key == CODED) {
+      if (keyCode == LEFT) {
+        paddleX -= paddleSpeed;
+      }
+    }
+  }
+}
+void PaddleContain() { 
+}
+void Miss() {
+  if (ballY > height) {
+    ballX = 20;
+    ballY = (ballRadius*2);
+    dirX = 0.9; 
+    dirY = 1;
+    lives--;
+  }
+  if (ballY >= paddleY-paddleHeight &&
+    ballX < paddleX + (paddleWidth/2) &&
+    ballX > paddleX - (paddleWidth/2)) {
+      score++ ;
+  } 
+  if (lives == 0)
+  {
+    background(0);
+    textAlign(CENTER);
+    text("Game Over",width/2, height/2);
+    text("Your Score is:" + score, width/2+10, height/2+10); 
+  }
+} 
+
+
