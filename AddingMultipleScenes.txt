@@ -1,0 +1,92 @@
+int scn = 0;  
+final int W=64, H=64;             //tile width and height
+final int SPEED = 4;              //character speed: can only be 1,2,4,8,...(for alignmnet)
+int speedX = 0;                   //+ve is right, -ve is left, 0 is not moving, can only be 1,2,4,8,..
+int row;                          // for drawing
+float x=5*W, y=6*H;               // character initially at 5th tile
+float speedY = 0, gravity = 0.2;  // for jumping
+boolean isJumping = false;
+
+void setup(){
+  size(512,512);
+}
+
+void draw() {
+switch(scn) {
+case 0: scene0(); break;
+case 1: scene1(); break;
+}
+}
+
+void keyReleased() {
+if(scn==0 && (key=='P'||key=='p'))
+scn = 1;
+if(scn==1 && (key=='M'||key=='m'))
+scn = 0;
+if(keyCode == RIGHT || keyCode == LEFT)
+    speedX = 0;
+}
+void keyPressed(){
+  //move right/left
+  if(keyCode == RIGHT)            speedX = SPEED;
+  else if(keyCode == LEFT)        speedX = -SPEED;
+  //jump
+  if(keyCode == ' ' && !isJumping) {isJumping = true; speedY = -5;}
+}
+
+void scene0(){
+background(0, 0, 100); 
+text("Hit P to play and E to exit. Hit M during gameplay to return to this screen",100,290);
+
+
+}
+//this is the main game scene
+PImage  backgrnd;
+void scene1(){
+  //draw background -- REQ: move to a function called drawBackground()
+  drawBackground();
+
+  //draw player -- REQ: move to a function called drawPlayer()
+  drawPlayer();
+  
+  //draw platform -- REQ: move to a function called drawPlatform()
+  drawPlatform();
+  
+  //move player -- REQ: move to a function called movePlayer() 
+ movePlayer();
+
+  //jumping  -- REQ: move to a function called jumpPlayer() 
+  jumpPlayer();
+    }
+
+
+
+void drawBackground(){
+   background(loadImage("background_0.png"));
+}
+
+void drawPlayer(){
+    image(loadImage("gameTile_15.png"),x,y);  
+}
+
+void drawPlatform(){
+  PImage tile13 = loadImage("gameTile_13.png"); 
+  for(int col=0;col<6;col++)
+    image(tile13,col*W,7*H);  
+  image(loadImage("gameTile_14.png"),6*W,7*H);
+}
+
+void movePlayer(){
+   x += speedX;
+   y += speedY;
+}
+
+void jumpPlayer(){
+if(isJumping){
+    y= y + speedY;
+    speedY = speedY + gravity;
+    if(y >= 6*H){
+      speedY = 0;
+      isJumping = false;
+      y = 6*H;
+}}}
