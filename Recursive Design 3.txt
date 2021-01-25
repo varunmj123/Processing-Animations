@@ -1,0 +1,41 @@
+
+float angle = 0;
+int w = width/2, h = height/2, t = 100;
+int a = width/4, b = height/4, s = 18;
+void setup(){
+  size(200, 200);
+}
+
+void draw(){
+  background(0); 
+  angle += 0.0003;
+  
+  translate(100, 100); 
+  rotate(degrees(angle));
+  
+  fill(225, t);
+  textSize(s);
+  textAlign(CENTER, CENTER);
+  text("UBC", 0, 0);
+  s += 0.8;
+  
+  noFill();
+  stroke(0, 0, 255, t);
+  strokeWeight(4);
+  rectMode(CENTER);
+  
+  rotate(PI/6); 
+  rect(0, 0, w, h);
+  rotate(PI/6); 
+  rect(0, 0, w, h);
+  rotate(PI/6); 
+  rect(0, 0, w, h);
+  w += 2;
+  h += 2;
+  
+  fill(0, 145, 23, t);
+  ellipse(0, 0, a, b);
+  a += 1;
+  b += 1;
+  t -= 0.01;
+}
